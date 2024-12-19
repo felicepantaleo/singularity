@@ -1,0 +1,72 @@
+Bootstrap: docker
+From: cmssw/cms:rhel8
+IncludeCmd: yes
+
+%labels
+AUTHOR Felice Pantaleo (CERN)
+
+ContainerName CERN rhel8 for Fireworks
+
+
+%post
+
+yum -y update
+yum install -y vim which wget tar bzip2 firefox ack xorg-x11-server-Xorg
+
+yum install -y pciutils \
+                   tar \
+                   glx-utils \
+                   mesa-dri-drivers \
+                   openssh-clients \
+                   perl \
+                   rsync \
+                   tcsh \
+                   zsh \
+                   tcl \
+                   tk \
+                   openssl \
+                   e2fsprogs \
+                   freetype \
+                   perl-ExtUtils-Embed \
+                   fontconfig \
+                   libX11 \
+                   libXmu \
+                   libSM \
+                   libICE \
+                   libXcursor \
+                   libXext \
+                   libXrandr \
+                   libXft \
+                   mesa-libGLU \
+                   mesa-libGL \
+                   e2fsprogs-libs \
+                   libXi \
+                   libXinerama \
+                   libXft-devel \
+                   libXrender \
+                   libXpm \
+                   perl-Test-Harness \
+                   perl-Data-Dumper \
+                   perl-Digest-MD5 \
+                   libX11-devel \
+                   libXpm-devel \
+                   libXext-devel \
+                   mesa-libGLU-devel \
+                   perl-Switch \
+                   perl-Env \
+                   perl-Thread-Queue \
+                   libaio \
+                   bzip2
+
+
+%environment
+
+export DISPLAY=unix:0.0
+#export LISTEN_PORT=12345
+export LC_ALL=C
+
+
+%help
+    This container runs CMSSW and Fireworks under a el8 enviroment. 
+    It assumes /cvmfs is mounted from outside:
+    singularity shell  -B /run:/run -B /cvmfs -B /tmp/.X11-unix  el8_cmssw.sandbox
